@@ -12,13 +12,13 @@ def webhook():
             print("Environment Variables Cannot Be Passed to Containers")
             allowed = False #NOPE!
 
-     # Now construct the response JSON
-     admission_response = {
-         "allowed": allowed
-     }
-     admissionReview = {
-          "response": admission_response
-     }
-     return jsonify(admissionReview) #And send it back!
+    # Now construct the response JSON
+    admission_response = {
+        "allowed": allowed
+    }
+    admissionReview = {
+         "response": admission_response
+    }
+    return jsonify(admissionReview) #And send it back!
 
 app.run(host='0.0.0.0', debug=True)
