@@ -21,4 +21,4 @@ def webhook():
     }
     return jsonify(admissionReview) #And send it back!
 
-app.run(host='0.0.0.0', debug=True)
+app.run(host='0.0.0.0', debug=True, ssl_context=('/cert/tls.crt', '/cert/tls.key'))
