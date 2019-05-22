@@ -61,7 +61,7 @@ def webhook():
     admission_response = {
         "uid": request_info['request']['uid'],
         "allowed": allowed,
-        "status": status
+        "result": {"status": status}
     }
     admissionReview = {
          "response": admission_response
