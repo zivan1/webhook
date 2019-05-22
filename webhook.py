@@ -33,7 +33,8 @@ def webhook():
             except:
                 print('Set API endpoint URL environment "APIURL"')
                 
-            path = '/apis/route.openshift.io/v1/routes?labelSelector=app%3Dtest&limit=500'
+            limit = os.environ('LIMIT', 500)
+            path = '/apis/route.openshift.io/v1/routes?limit=' + limit
             req = Request(master + path, headers={'Authorization': 'Bearer ' + token})
             resp = urlopen(req, cafile='/run/secrets/kubernetes.io/serviceaccount/ca.crt')
             data = json.load(resp)
