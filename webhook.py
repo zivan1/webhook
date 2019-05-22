@@ -7,7 +7,7 @@ app = Flask(__name__)
 def webhook():
     allowed = True #Default to allowed
     request_info = request.json #read the JSON into a Python dict
-    print(request_info)
+    pprint(request_info)
 #    for container_spec in request_info["request"]["object"]["spec"]["containers"]: #For each container defined in the request
 #        if 'env' in container_spec: #if there are environment variables set....
 #            print("Environment Variables Cannot Be Passed to Containers")
