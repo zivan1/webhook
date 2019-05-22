@@ -9,6 +9,7 @@ app = Flask(__name__)
 @app.route('/', methods=['POST']) ###Listen on / for POST requests
 def webhook():
     allowed = True #Default to allowed
+    result = ""
     request_info = request.json #read the JSON into a Python dict
     pprint(request_info)
     
@@ -51,12 +52,16 @@ def webhook():
         
             if port in ports:
                 allowed = False
+                result = 'Port ' + port + ' is already used'
         else:
             allowed = False
+            result = 'No "nginx.router.openshift.io/protocol" annotations in metadata'
 
     # Now construct the response JSON
     admission_response = {
-        "allowed": allowed
+        "uid": request_info['request']['uid'],
+        "allowed": allowed,
+        "result": result
     }
     admissionReview = {
          "response": admission_response
