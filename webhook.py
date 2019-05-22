@@ -52,16 +52,16 @@ def webhook():
 
                 if port in ports:
                     allowed = False
-                    status = 'Port ' + port + ' is already used'
+                    status = 'Port ' + port + ' is already in use'
         else:
             allowed = False
-            status = 'No "nginx.router.openshift.io/protocol" annotations in metadata'
+            status = 'No "nginx.router.openshift.io/protocol" annotation in metadata'
 
     # Now construct the response JSON
     admission_response = {
         "uid": request_info['request']['uid'],
         "allowed": allowed,
-        "result": {"status": {"message": status}}
+        "status": {"message": status}
     }
     admissionReview = {
          "response": admission_response
