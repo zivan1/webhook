@@ -11,13 +11,13 @@ def webhook():
     allowed = True #Default to allowed
     result = ""
     request_info = request.json #read the JSON into a Python dict
-    pprint(request_info)
+    #pprint(request_info)
     
     try:
         annotations=request_info['request']['object']['metadata']['annotations']
     except:
         print('Bad request: ' + request_info)
-        return jsonify(admissionReview)
+        return
     
     if 'nginx.router.openshift.io/port' in annotations.keys():
         port = annotations['nginx.router.openshift.io/port']
@@ -32,8 +32,9 @@ def webhook():
                 master = os.environ['APIURL']
             except:
                 print('Set API endpoint URL environment "APIURL"')
+                return
                 
-            limit = os.environ('LIMIT', 500)
+            limit = os.environ.get('LIMIT', 500)
             path = '/apis/route.openshift.io/v1/routes?limit=' + limit
             req = Request(master + path, headers={'Authorization': 'Bearer ' + token})
             resp = urlopen(req, cafile='/run/secrets/kubernetes.io/serviceaccount/ca.crt')
